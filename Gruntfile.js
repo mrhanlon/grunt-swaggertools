@@ -1,6 +1,6 @@
 /*
- * grunt-swagger-tools
- * https://github.com/mrhanlon/grunt-swagger-tools
+ * grunt-swaggertools
+ * https://github.com/mrhanlon/grunt-swaggertools
  *
  * Copyright (c) 2015 Matthew R Hanlon
  * Licensed under the MIT license.
@@ -15,42 +15,21 @@ module.exports = function(grunt) {
     jshint: {
       all: [
         'Gruntfile.js',
-        'tasks/*.js',
-        '<%= nodeunit.tests %>'
+        'tasks/*.js'
       ],
       options: {
         jshintrc: '.jshintrc'
       }
     },
 
-    // Before generating any new files, remove any previously-created files.
-    clean: {
-      tests: ['tmp']
-    },
-
     // Configuration to be run (and then tested).
-    swagger_tools: {
-      default_options: {
-        options: {
-        },
-        files: {
-          'tmp/default_options': ['test/fixtures/testing', 'test/fixtures/123']
-        }
+    swaggertools: {
+      petstore: {
+        specFile: 'test/fixtures/petstore.json'
       },
-      custom_options: {
-        options: {
-          separator: ': ',
-          punctuation: ' !!!'
-        },
-        files: {
-          'tmp/custom_options': ['test/fixtures/testing', 'test/fixtures/123']
-        }
-      }
-    },
-
-    // Unit tests.
-    nodeunit: {
-      tests: ['test/*_test.js']
+      petstore_expanded: {
+        specFile: 'test/fixtures/petstore_expanded.json'
+      },
     }
 
   });
@@ -60,14 +39,7 @@ module.exports = function(grunt) {
 
   // These plugins provide necessary tasks.
   grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-contrib-nodeunit');
 
-  // Whenever the "test" task is run, first clean the "tmp" dir, then run this
-  // plugin's task(s), then test the result.
-  grunt.registerTask('test', ['clean', 'swagger_tools', 'nodeunit']);
-
-  // By default, lint and run all tests.
-  grunt.registerTask('default', ['jshint', 'test']);
-
+  grunt.registerTask('test', ['jshint', 'swaggertools']);
+  grunt.registerTask('default', ['test']);
 };
