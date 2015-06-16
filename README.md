@@ -1,5 +1,7 @@
 # grunt-swaggertools
 
+[![Build Status](https://travis-ci.org/mrhanlon/grunt-swaggertools.svg)](https://travis-ci.org/mrhanlon/grunt-swaggertools)
+
 > Grunt plugin for Swagger API tooling
 
 ## Getting Started
