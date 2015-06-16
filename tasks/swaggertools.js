@@ -27,21 +27,24 @@ module.exports = function(grunt) {
 
       if (typeof validationResult === 'undefined') {
         grunt.log.ok('The Swagger specification', specFile, 'is a valid Swagger', options.version, 'Specification.');
+        done();
       } else {
-        if (validationResult.errors.length > 0) {
-          validationResult.errors.forEach(function(error) {
-            grunt.log.error(error);
-          });
-        }
 
         if (validationResult.warnings.length > 0) {
           validationResult.warnings.forEach(function(warning) {
-            grunt.log.writeln(warning);
+            grunt.log.writeln(warning.code, warning.message, 'at', warning.path.join('.'));
           });
         }
-      }
 
-      done();
+        if (validationResult.errors.length > 0) {
+          validationResult.errors.forEach(function(error) {
+            grunt.log.error(error.code, error.message, 'at', error.path.join('.'));
+          });
+          done(false);
+        } else {
+          done();
+        }
+      }
     });
   }
 
