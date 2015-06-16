@@ -19,6 +19,8 @@ grunt.loadNpmTasks('grunt-swaggertools');
 
 ## The "swaggertools" task
 
+Grunt Swagger Tools uses [swagger-tools](https://github.com/apigee-127/swagger-tools) under the hood. The grunt task currently supports validation of JSON spec files, but will support YAML as well as additional tasks in the future.
+
 ### Overview
 In your project's Gruntfile, add a section named `swaggertools` to the data object passed into `grunt.initConfig()`.
 
